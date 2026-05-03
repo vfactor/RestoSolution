@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+import "Protos/app.proto";
+
+option csharp_namespace = "Information";
+
+package dictionary;
+
+message DictionaryEntry
+{
+	string key = 1;	
+	string value = 2;
+}
+message Dictionary
+{
+	app.LanguageCode languageCode = 1;
+	repeated DictionaryEntry entries = 2;
+}
+message Dictionaries
+{
+	repeated Dictionary dictionaries = 1;
+}

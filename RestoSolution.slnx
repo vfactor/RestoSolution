@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Data/Data.csproj" />
+  <Project Path="gRPCService/gRPCService.csproj" />
+  <Project Path="Information/Information.csproj" />
+</Solution>
