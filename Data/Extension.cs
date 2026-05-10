@@ -7,7 +7,8 @@ namespace Data
         public static object? GetPropertyVAlue(this object source, PropertyInfo pi)
         {
             object? value = pi.GetValue(source);
-           
+
+#pragma warning disable CS8605 // Unboxing a possibly null value.
             return pi.PropertyType.FullName switch
             {
                 "System.Byte" => Convert.ToInt32(value),
@@ -15,6 +16,7 @@ namespace Data
                 "System.Guid" => value?.ToString(),
                 _ => value,
             };
+#pragma warning restore CS8605 // Unboxing a possibly null value.
         }
     }
 }

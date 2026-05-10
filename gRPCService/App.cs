@@ -7,7 +7,7 @@ namespace gRPCService
     public class App
     {
         public readonly Information.AppSetting AppSettings;
-        private readonly Information.Dictionaries Dictionaries;
+        private readonly Information.Dictionaries Dictionaries = new();
         public App(IServiceScopeFactory serviceScopeFactory, CollectionMapper mappers)
         {
             using var scope = serviceScopeFactory.CreateScope();

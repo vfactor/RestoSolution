@@ -15,8 +15,8 @@
     {
         public override Information.State ToInformation() => new() 
         {
-            Id = Id,
-            Code = Code
+            Id = this.Id,
+            Code = this.Code
         };
     }
     public partial class LanguageCode : AbstractMap<Information.LanguageCode>

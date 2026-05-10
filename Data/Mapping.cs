@@ -1,4 +1,6 @@
 ﻿using Google.Protobuf;
+using Google.Protobuf.Reflection;
+using System.Reflection;
 
 namespace Data
 {
@@ -16,12 +18,13 @@ namespace Data
         private T Build<T>(object source) where T : IMessage<T>, new() {
             var retT = new T();
             var desc = retT.Descriptor;
-
             var map = new Dictionary<int, string>();
+            
+            FieldDescriptor fd;
 
             foreach (var pi in source.GetType().GetProperties())
             {
-                var fd = desc.FindFieldByName(pi.Name);
+                fd = desc.FindFieldByName(pi.Name);
                 if (fd != null)
                 {
                     fd.Accessor.SetValue(retT, source.GetPropertyVAlue(pi));
@@ -34,16 +37,21 @@ namespace Data
             return retT;
         }
         private T Map<T>(object source) where T : IMessage<T>, new() {
-            
             var retT = new T();
             var sType = source.GetType();
 
+            FieldDescriptor? fd;
+            PropertyInfo pi;
+
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             foreach (var fm in _map)
             {
-                var fd = retT.Descriptor.FindFieldByNumber(fm.Key);
-                var pi = sType.GetProperty(fm.Value);
+                fd = retT.Descriptor.FindFieldByNumber(fm.Key) ?? throw new InvalidOperationException($"Field with number {fm.Key} not found.");
+                pi = sType.GetProperty(fm.Value) ?? throw new InvalidOperationException($"Property with name {fm.Value} not found.");
+                
                 fd.Accessor.SetValue(retT, source.GetPropertyVAlue(pi));
             }
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
 
             return retT;
         }
