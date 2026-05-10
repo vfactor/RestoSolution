@@ -50,7 +50,7 @@ public partial class RestaurantContext : DbContext
                 .ToTable("AppInfo");
 
             entity.Property(e => e.Id).ValueGeneratedOnAdd();
-            entity.Property(e => e.LastUpdate).HasColumnType("datetime");
+            entity.Property(e => e.InstallOn).HasDefaultValueSql("(current_date)", "DF_AppInfo_InstallOn");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -61,11 +61,11 @@ public partial class RestaurantContext : DbContext
 
         modelBuilder.Entity<DictioaryEntry>(entity =>
         {
-            entity.HasKey(e => new { e.UniqueCode, e.LanguageCode }).HasName("PK_Dictionnary");
+            entity.HasKey(e => new { e.Key, e.LanguageCode }).HasName("PK_Dictionnary");
 
             entity.ToTable("DictioaryEntry");
 
-            entity.Property(e => e.UniqueCode)
+            entity.Property(e => e.Key)
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.LanguageCode)

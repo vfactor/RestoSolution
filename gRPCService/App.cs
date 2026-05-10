@@ -20,7 +20,7 @@ namespace gRPCService
                 LanguageCodes = new LanguageCodes(dbcontext).ToInformation()
             };
 
-            this.Dictionaries = new Dictionaries(dbcontext).ToInformation();
+            //this.Dictionaries = new Dictionaries(dbcontext).ToInformation();
         }
         public Information.Dictionary GetDictionary(Information.LanguageCode lc) => this.Dictionaries.GetDictionary(lc) ?? throw new KeyNotFoundException($"Dictionary for language code '{lc.Code}' not found.");
     }

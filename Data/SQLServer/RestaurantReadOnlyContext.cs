@@ -2,7 +2,7 @@
 
 namespace Data.SQLServer;
 
-public partial class RestaurantReadOnlyContext : RestaurantContext
+public sealed class RestaurantReadOnlyContext : RestaurantContext
 {
     public RestaurantReadOnlyContext(DbContextOptions<RestaurantContext> options) : base(options) => this.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 

@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "google/protobuf/empty.proto";
+import "Protos/date.proto";    //Need nuget Google.Api.CommonProtos
 
 option csharp_namespace = "Information";
 
@@ -11,6 +12,7 @@ service App {
   rpc GetDictionary(LanguageCode) returns (Dictionary);
 }
 
+
 message AppSetting {
 	AppInfo info = 1;
 	LanguageCodes languageCodes = 2;
@@ -18,7 +20,11 @@ message AppSetting {
 	ServiceStatuses serviceStatuses = 4;
 }
 message AppInfo {
-  string name = 1;
+	int32 id = 1;
+	string name = 2;
+	google.type.Date installOn = 3;
+	string version = 4;
+	string license = 5;
 }
 message LanguageCode{
 	string code = 1;
@@ -42,17 +48,14 @@ message ServiceStatus{
 message ServiceStatuses{
 	repeated ServiceStatus values = 1;
 }
-message DictionaryEntry
-{
+message DictionaryEntry{
 	string key = 1;	
 	string value = 2;
 }
-message Dictionary
-{
+message Dictionary{
 	app.LanguageCode languageCode = 1;
 	repeated DictionaryEntry entries = 2;
 }
-message Dictionaries
-{
+message Dictionaries{
 	repeated Dictionary collection = 1;
 }

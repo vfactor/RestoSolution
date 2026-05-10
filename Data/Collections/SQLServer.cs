@@ -11,7 +11,7 @@ namespace Data.Collections
        public Information.ServiceStatuses ToInformation() => new([.. dbcontext.ServiceStatuses.Select(s => s.ToInformation())]);
     }
     public class LanguageCodes(RestaurantReadOnlyContext dbcontext) : IMap<Information.LanguageCodes>
-    {        
+    {
         public Information.LanguageCodes ToInformation() => new([.. dbcontext.LanguageCodes.Select(lc => lc.ToInformation())]);
     }
     public class Dictionary(RestaurantReadOnlyContext dbcontext, LanguageCode languageCode) : IMap<Information.Dictionary>

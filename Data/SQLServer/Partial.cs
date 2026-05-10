@@ -4,7 +4,11 @@
     {
         public Information.AppInfo ToInformation() => new()
         {
-           Name = this.Name
+            Id = this.Id,
+            Name = this.Name,
+            InstallOn = new(){ Year = this.InstallOn.Year, Month = this.InstallOn.Month, Day = this.InstallOn.Day },
+            Version = this.Version,
+            License = this.License.ToString(),
         };
     }
     public partial class State : IMap<Information.State>
@@ -19,25 +23,25 @@
     {
         public Information.LanguageCode ToInformation() => new()
         {
-            Code = Code,
-            Name = Name
+            Code = this.Code,
+            Name = this.Name
         };
     }
     public partial class ServiceStatus : IMap<Information.ServiceStatus>
     {
         public Information.ServiceStatus ToInformation() => new()
         {
-            Id = Id,
-            NextStatusId = NextStatusId ?? 0,
-            Code = Code
+            Id = this.Id,
+            NextStatusId = this.NextStatusId ?? 0,
+            Code = this.Code
         };
     }
     public partial class DictioaryEntry : IMap<Information.DictionaryEntry>
     {
         public Information.DictionaryEntry ToInformation() => new()
         {
-            Key = UniqueCode ?? string.Empty,
-            Value = Value ?? string.Empty
+            Key = this.Key,
+            Value = this.Value
         };
     }
 }

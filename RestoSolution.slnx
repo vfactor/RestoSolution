@@ -2,4 +2,5 @@
   <Project Path="Data/Data.csproj" />
   <Project Path="gRPCService/gRPCService.csproj" />
   <Project Path="Information/Information.csproj" />
+  <Project Path="Test/Test.csproj" Id="b9b3623f-9f3a-415b-bfe1-8ccd511775b5" />
 </Solution>

@@ -14,6 +14,4 @@ public partial class AppInfo
     public string Version { get; set; } = null!;
 
     public Guid License { get; set; }
-
-    public DateTime LastUpdate { get; set; }
 }
