@@ -1,4 +1,7 @@
-﻿namespace Data.Models.SQLServer;
+﻿using System;
+using System.Collections.Generic;
+
+namespace Data.SQLServer;
 
 public partial class Menu
 {
@@ -12,7 +15,7 @@ public partial class Menu
 
     public byte State { get; set; }
 
-    public virtual ICollection<MenuDetail> MenuDetails { get; set; } = [];
+    public virtual ICollection<MenuDetail> MenuDetails { get; set; } = new List<MenuDetail>();
 
     public virtual State StateNavigation { get; set; } = null!;
 }

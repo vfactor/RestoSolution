@@ -11,7 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\dictionary.proto" GrpcServices="Server" />
     <Protobuf Include="Protos\app.proto" GrpcServices="Server" />
     <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
   </ItemGroup>

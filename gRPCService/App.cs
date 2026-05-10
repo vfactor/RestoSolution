@@ -1,23 +1,27 @@
 ﻿using Data.Collections;
-using Data.Models.SQLServer;
+using Data.SQLServer;
 
 namespace gRPCService
 {
     public class App
     {
-        private readonly RestaurantReadOnlyContext _dbcontext;
-        public Information.App AppSettings { get; private set; } = new();
-        public App(RestaurantReadOnlyContext dbcontext)
+        public readonly Information.AppSetting AppSettings;
+        private readonly Information.Dictionaries Dictionaries;
+        public App(IServiceScopeFactory serviceScopeFactory)
         {
-            _dbcontext = dbcontext;
-            LoadAppInfo();
+            using var scope = serviceScopeFactory.CreateScope();
+            var dbcontext = scope.ServiceProvider.GetRequiredService<RestaurantReadOnlyContext>();
+
+            this.AppSettings = new()
+            {
+                Info = dbcontext.AppInfos.First().ToInformation(),
+                States = new States(dbcontext).ToInformation(),
+                ServiceStatuses = new ServiceStatuses(dbcontext).ToInformation(),
+                LanguageCodes = new LanguageCodes(dbcontext).ToInformation()
+            };
+
+            this.Dictionaries = new Dictionaries(dbcontext).ToInformation();
         }
-        private void LoadAppInfo()
-        {
-            AppSettings.Info = _dbcontext.AppInfos.First().ToInformation();
-            AppSettings.States = new States(_dbcontext).ToInformation();
-            AppSettings.ServiceStatuses = new ServiceStatuses(_dbcontext).ToInformation();
-            AppSettings.LanguageCodes = new LanguageCodes(_dbcontext).ToInformation();
-        }
+        public Information.Dictionary GetDictionary(Information.LanguageCode lc) => this.Dictionaries.GetDictionary(lc) ?? throw new KeyNotFoundException($"Dictionary for language code '{lc.Code}' not found.");
     }
 }

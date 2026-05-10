@@ -1,18 +1,20 @@
+using Data;
+using gRPCService;
 using gRPCService.Services;
 using Microsoft.EntityFrameworkCore;
-using gRPCService;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddGrpc();
 
-var conStr = builder.Configuration.GetConnectionString("ConnectionString") ?? throw new InvalidOperationException("Connection string not found.");
+var conStr = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string not found.");
 
-builder.Services.AddDbContext<Data.Models.SQLServer.RestaurantReadOnlyContext>(options =>options.UseSqlServer(conStr));
-builder.Services.AddDbContext<Data.Models.SQLServer.RestaurantContext>(options =>options.UseSqlServer(conStr));
+builder.Services.AddDbContext<Data.SQLServer.RestaurantReadOnlyContext>(options =>options.UseSqlServer(conStr));
+builder.Services.AddDbContext<Data.SQLServer.RestaurantContext>(options =>options.UseSqlServer(conStr));
 
 builder.Services.AddSingleton<App>();
+builder.Services.AddSingleton<CollectionMapper>();
 
 var app = builder.Build();
 
