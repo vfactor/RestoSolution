@@ -1,4 +1,5 @@
-﻿using Data.Collections;
+﻿using Data;
+using Data.Collections;
 using Data.SQLServer;
 
 namespace gRPCService
@@ -7,17 +8,17 @@ namespace gRPCService
     {
         public readonly Information.AppSetting AppSettings;
         private readonly Information.Dictionaries Dictionaries;
-        public App(IServiceScopeFactory serviceScopeFactory)
+        public App(IServiceScopeFactory serviceScopeFactory, CollectionMapper mappers)
         {
             using var scope = serviceScopeFactory.CreateScope();
             var dbcontext = scope.ServiceProvider.GetRequiredService<RestaurantReadOnlyContext>();
 
             this.AppSettings = new()
             {
-                Info = dbcontext.AppInfos.First().ToInformation(),
-                States = new States(dbcontext).ToInformation(),
+                Info = dbcontext.AppInfos.First().ToInformation(mappers),
+                States = new States(dbcontext).ToInformation(mappers),
                 ServiceStatuses = new ServiceStatuses(dbcontext).ToInformation(),
-                LanguageCodes = new LanguageCodes(dbcontext).ToInformation()
+                LanguageCodes = new LanguageCodes(dbcontext).ToInformation(mappers)
             };
 
             //this.Dictionaries = new Dictionaries(dbcontext).ToInformation();

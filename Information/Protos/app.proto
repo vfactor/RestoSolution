@@ -14,48 +14,48 @@ service App {
 
 
 message AppSetting {
-	AppInfo info = 1;
-	LanguageCodes languageCodes = 2;
-	States states = 3;
-	ServiceStatuses serviceStatuses = 4;
+	AppInfo Info = 1;
+	LanguageCodes LanguageCodes = 2;
+	States States = 3;
+	ServiceStatuses ServiceStatuses = 4;
 }
 message AppInfo {
-	int32 id = 1;
-	string name = 2;
-	google.type.Date installOn = 3;
-	string version = 4;
-	string license = 5;
+	int32 Id = 1;
+	string Name = 2;
+	google.type.Date InstallOn = 3;
+	string Version = 4;
+	string License = 5;
 }
 message LanguageCode{
-	string code = 1;
-	string name = 2;
+	string Code = 1;
+	string Name = 2;
 }
 message LanguageCodes{
-	repeated LanguageCode values = 1;
+	repeated LanguageCode Values = 1;
 }
 message State{
-	int32 id =1;
-	string code = 2;
+	int32 Id =1;
+	string Code = 2;
 }
 message States{
-	repeated State values = 1;
+	repeated State Values = 1;
 }
 message ServiceStatus{
-	int32 id = 1;
-	int32 nextStatusId = 2;
-	string code = 3;
+	int32 Id = 1;
+	int32 NextStatusId = 2;
+	string Code = 3;
 }
 message ServiceStatuses{
-	repeated ServiceStatus values = 1;
+	repeated ServiceStatus Values = 1;
 }
 message DictionaryEntry{
-	string key = 1;	
-	string value = 2;
+	string Key = 1;	
+	string Value = 2;
 }
 message Dictionary{
-	app.LanguageCode languageCode = 1;
-	repeated DictionaryEntry entries = 2;
+	app.LanguageCode LanguageCode = 1;
+	repeated DictionaryEntry Entries = 2;
 }
 message Dictionaries{
-	repeated Dictionary collection = 1;
+	repeated Dictionary Collection = 1;
 }

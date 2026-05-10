@@ -1,8 +1,8 @@
 ﻿namespace Data.SQLServer
 {
-    public partial class AppInfo : IMap<Information.AppInfo>
+    public partial class AppInfo : AbstractMap<Information.AppInfo>
     {
-        public Information.AppInfo ToInformation() => new()
+        public override Information.AppInfo ToInformation() => new()
         {
             Id = this.Id,
             Name = this.Name,
@@ -11,34 +11,34 @@
             License = this.License.ToString(),
         };
     }
-    public partial class State : IMap<Information.State>
+    public partial class State : AbstractMap<Information.State>
     {
-        public Information.State ToInformation() => new()
+        public override Information.State ToInformation() => new() 
         {
             Id = Id,
             Code = Code
         };
     }
-    public partial class LanguageCode : IMap<Information.LanguageCode>
+    public partial class LanguageCode : AbstractMap<Information.LanguageCode>
     {
-        public Information.LanguageCode ToInformation() => new()
+        public  override Information.LanguageCode ToInformation() => new()
         {
             Code = this.Code,
             Name = this.Name
         };
     }
-    public partial class ServiceStatus : IMap<Information.ServiceStatus>
+    public partial class ServiceStatus : AbstractMap<Information.ServiceStatus>
     {
-        public Information.ServiceStatus ToInformation() => new()
+        public override Information.ServiceStatus ToInformation() => new()
         {
             Id = this.Id,
             NextStatusId = this.NextStatusId ?? 0,
             Code = this.Code
         };
     }
-    public partial class DictioaryEntry : IMap<Information.DictionaryEntry>
+    public partial class DictioaryEntry : AbstractMap<Information.DictionaryEntry>
     {
-        public Information.DictionaryEntry ToInformation() => new()
+        public override Information.DictionaryEntry ToInformation() => new()
         {
             Key = this.Key,
             Value = this.Value

@@ -11,7 +11,7 @@ builder.Services.AddGrpc();
 var conStr = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string not found.");
 
 builder.Services.AddDbContext<Data.SQLServer.RestaurantReadOnlyContext>(options =>options.UseSqlServer(conStr));
-builder.Services.AddDbContext<Data.SQLServer.RestaurantContext>(options =>options.UseSqlServer(conStr));
+builder.Services.AddDbContext<Data.SQLServer.RestaurantContext>(options => options.UseSqlServer(conStr));
 
 builder.Services.AddSingleton<App>();
 builder.Services.AddSingleton<CollectionMapper>();

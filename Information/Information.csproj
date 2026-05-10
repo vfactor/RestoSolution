@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\app.proto" GrpcServices="Server" />
-	<Protobuf Include="Protos\app.proto" Test="Client" />  </ItemGroup>
-
+    <Protobuf Include="Protos\app.proto" GrpcService="Server" />
+	<Protobuf Include="Protos\app.proto" Test="Client" />  
+  </ItemGroup>
 </Project>

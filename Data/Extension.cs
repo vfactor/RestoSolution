@@ -4,12 +4,15 @@ namespace Data
 {
     internal static class Extension
     {
-        public static object? GetMapValue(this PropertyInfo pi, object source)
+        public static object? GetPropertyVAlue(this object source, PropertyInfo pi)
         {
-            var value = pi.GetValue(source);
-
+            object? value = pi.GetValue(source);
+           
             return pi.PropertyType.FullName switch
             {
+                "System.Byte" => Convert.ToInt32(value),
+                "System.DateOnly" => new Google.Type.Date { Year = ((DateOnly)value).Year, Month = ((DateOnly)value).Month, Day = ((DateOnly)value).Day },
+                "System.Guid" => value?.ToString(),
                 _ => value,
             };
         }

@@ -2,13 +2,13 @@
 
 namespace Data
 {
-    public interface IMap<T> where T : IMessage<T>, new()
+    public abstract class AbstractMap<T> where T : IMessage<T>, new()
     {
-        T ToInformation() => throw new NotImplementedException();
-        T ToInformation(Mapper mapper) => mapper.Parse<T>(this);
+        public virtual T ToInformation() => throw new NotImplementedException();
+        public virtual T ToInformation(CollectionMapper maapers) => maapers.Get<T>().Parse<T>(this);
         void FromInformation(T information) => throw new NotImplementedException();
     }
-   
+
     public sealed class Mapper
     {
         private Dictionary<int, string>? _map = null;
@@ -24,7 +24,7 @@ namespace Data
                 var fd = desc.FindFieldByName(pi.Name);
                 if (fd != null)
                 {
-                    fd.Accessor.SetValue(retT, pi.GetMapValue(source));
+                    fd.Accessor.SetValue(retT, source.GetPropertyVAlue(pi));
                     map.Add(fd.FieldNumber, pi.Name);
                 }
             }
@@ -42,7 +42,7 @@ namespace Data
             {
                 var fd = retT.Descriptor.FindFieldByNumber(fm.Key);
                 var pi = sType.GetProperty(fm.Value);
-                fd.Accessor.SetValue(retT, pi.GetMapValue(source));
+                fd.Accessor.SetValue(retT, source.GetPropertyVAlue(pi));
             }
 
             return retT;
